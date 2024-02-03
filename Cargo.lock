@@ -3,6 +3,10 @@
 version = 3
 
 [[package]]
+name = "arch"
+version = "0.1.0"
+
+[[package]]
 name = "colored"
 version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -10,6 +14,22 @@ checksum = "cbf2150cce219b664a8a70df7a1f933836724b503f8a413af9365b4dcc4d90b8"
 dependencies = [
  "lazy_static",
  "windows-sys",
+]
+
+[[package]]
+name = "dog"
+version = "0.1.0"
+dependencies = [
+ "arch",
+]
+
+[[package]]
+name = "dog_face"
+version = "0.1.0"
+dependencies = [
+ "arch",
+ "dog",
+ "utils",
 ]
 
 [[package]]
@@ -22,8 +42,20 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 name = "mag"
 version = "0.1.0"
 dependencies = [
+ "arch",
  "colored",
+ "dog",
+ "dog_face",
+ "utils",
 ]
+
+[[package]]
+name = "tests"
+version = "0.1.0"
+
+[[package]]
+name = "utils"
+version = "0.1.0"
 
 [[package]]
 name = "windows-sys"

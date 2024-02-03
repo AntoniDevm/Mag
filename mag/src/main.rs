@@ -1,6 +1,21 @@
-use colored::*;
+use arch::Mode;
+use dog_face::DogMode;
+use utils::input;
+
 fn main() {
-    let welcome = format!("Welcome {} the magnifying glass to your programs","Mag".bold().red());
-    
-    println!("{}",welcome);
+    println!("Welcome!");
+    loop { 
+        let command = input("(mag) ").unwrap();
+        println!("{}",command);
+        match command.as_str() {
+            "dog" => {
+                let mut mode = DogMode::new();
+                mode.start();
+            }
+            "exit" | "q" | "c" | "quit"  => {
+                break;
+            }
+            _ => {}
+        }
+    }
 }
