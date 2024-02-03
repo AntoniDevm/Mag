@@ -7,3 +7,10 @@ edition = "2021"
 
 [dependencies]
 colored = "2.1.0"
+
+dog = {path="../cores/dog/"}
+dog_face = {path = "../modes/dog_face/"}
+
+arch = { path = "../arch/" }
+
+utils = { path = "../utils/"}

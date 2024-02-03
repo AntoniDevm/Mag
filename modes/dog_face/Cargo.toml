@@ -1,0 +1,11 @@
+[package]
+name = "dog_face"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dog = {path = "../../cores/dog/"}
+arch = { path = "../../arch/"}
+utils = { path = "../../utils/"}
