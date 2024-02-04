@@ -1,9 +1,15 @@
 use arch::Mode;
 use dog_face::DogMode;
 use utils::input;
-
+use logging::setup_logging;
+use log;
 fn main() {
-    println!("Welcome!");
+    setup_logging(log::LevelFilter::Trace);
+    log::info!("Welcome!");
+    log::debug!("STARTING");
+    log::warn!("WARNING");
+    log::error!("SOME ERROR OCCURED");
+    log::trace!("TRACING");
     loop { 
         let command = input("(mag) ").unwrap();
         println!("{}",command);
