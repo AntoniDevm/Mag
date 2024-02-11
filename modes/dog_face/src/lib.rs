@@ -26,7 +26,14 @@ impl DogMode {
 impl Mode for DogMode {
     fn start(&mut self) {
         loop {
-            let command = input("(dog) ").unwrap();
+            let command = match input("(dog) ") {
+                Ok(s) => s,
+                Err(er) => {
+                    log::error!("An error occured while getting user input");
+                    log::debug!("Error message: {}", er);
+                    return;
+                }
+            };
             match command.as_str() {
                 "bark" => {
                     self.bark.run();

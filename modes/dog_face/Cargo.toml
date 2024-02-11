@@ -9,3 +9,4 @@ edition = "2021"
 dog = {path = "../../cores/dog/"}
 arch = { path = "../../arch/"}
 utils = { path = "../../utils/"}
+log = "0.4.20"

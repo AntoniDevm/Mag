@@ -6,13 +6,17 @@ use log;
 fn main() {
     setup_logging(log::LevelFilter::Trace);
     log::info!("Welcome!");
-    log::debug!("STARTING");
-    log::warn!("WARNING");
-    log::error!("SOME ERROR OCCURED");
-    log::trace!("TRACING");
     loop { 
-        let command = input("(mag) ").unwrap();
-        println!("{}",command);
+        let command = match input("(mag) ") {
+            Ok(s) => s,
+            Err(er) => {
+                log::error!("An error occured while getting user input");
+                log::debug!("Error message: {}",er);
+                return;
+
+            }
+        };
+
         match command.as_str() {
             "dog" => {
                 let mut mode = DogMode::new();
