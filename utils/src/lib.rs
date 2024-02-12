@@ -1,5 +1,5 @@
-use std::io::{self, Write};
 
+use std::io::{self, Write};
 
 pub fn input(text: &str) -> Result<String, Box<dyn std::error::Error>> {
     let ins = io::stdin();
@@ -10,3 +10,5 @@ pub fn input(text: &str) -> Result<String, Box<dyn std::error::Error>> {
     ins.read_line(&mut input)?;
     Ok(input.get(0..input.len() - 1).unwrap().to_string())
 }
+
+

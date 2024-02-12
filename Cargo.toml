@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = [ "arch", 
+members = [ "arch",  "config", "cores/binid", 
   "cores/dog", "logging",
-  "mag", "modes/dog_face", "tests", "utils",
+  "mag", "modes/dev", "modes/dog_face", "tests", "utils",
 ]

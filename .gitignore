@@ -2,3 +2,6 @@
 /mag/target
 /ignore
 /logs
+config.yaml
+dbg
+dbg32

@@ -9,8 +9,12 @@ edition = "2021"
 colored = "2.1.0"
 log = "0.4.20"
 
-dog = { path="../cores/dog" }
+
+dev = { path = "../modes/dev" }
 dog_face = { path = "../modes/dog_face" }
+
+dog = { path="../cores/dog" }
 arch = { path = "../arch" }
 utils = { path = "../utils"}
 logging = { path = "../logging"}
+config = { path = "../config" }

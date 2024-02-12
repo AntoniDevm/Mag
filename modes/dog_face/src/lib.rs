@@ -41,7 +41,7 @@ impl Mode for DogMode {
                 "count" => {
                     self.counter.run();
                 }
-                "exit" | "c" | "q" | "quit"=> {
+                "exit" | "c" | "q" | "quit" => {
                     break;
                 }
                 _ => {}
