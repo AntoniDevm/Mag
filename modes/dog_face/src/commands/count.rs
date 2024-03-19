@@ -6,7 +6,7 @@ pub struct Count {
 }
 
 impl arch::Command for Count {
-    fn run(&mut self) {
+    fn run(&mut self, _args: Vec<&str>) {
         let core = self.core.borrow();
         println!("I've barked {} times", core.value())
     }

@@ -1,7 +1,8 @@
-use std::{cell::RefCell, io};
+use std::cell::RefCell;
 use std::rc::Rc;
 
-use arch::{Command, Mode};
+use anyhow::bail;
+use arch::{Command, Mode, ModeError};
 use binid::BinID;
 use commands::Identify;
 use utils::input;
@@ -10,7 +11,7 @@ mod commands;
 pub struct DevMode<'a> {
     #[allow(dead_code)]
     args: Vec<&'a str>,
-    id: Identify<'a>
+    id: Identify
 }
 
 impl<'a> Mode for DevMode<'a> {
@@ -33,7 +34,7 @@ impl<'a> Mode for DevMode<'a> {
 
             match command {
                 "id" => {
-                    self.id.run();
+                    self.id.run(args);
                 }
                 "exit" | "quit" | "q" => {
                     break;
@@ -46,23 +47,27 @@ impl<'a> Mode for DevMode<'a> {
 }
 
 impl<'a> DevMode<'a> {
-    pub fn new(args: Vec<&str>) -> Result<DevMode,io::Error> {
+    pub fn new(args: Vec<&str>) -> anyhow::Result<DevMode> {
+        // log::error!("Implement states");
+        // bail!("You didn't implement states");
         let file = if let Some(file) = args.get(1) {
             file
         } else {
             log::error!("Not enough arguments. Supply file name");
-            return Err(io::Error::new(io::ErrorKind::InvalidData, "More arduments required"));
+            bail!("Not enough arguments. Supply file name");
         };
         let binid = match BinID::new(file) {
             Ok(b) => b,
             Err(er) => {
                 log::error!("Error creating BinID core");
                 log::debug!("Error message: {}",er);
-                return Err(io::Error::new(io::ErrorKind::InvalidInput, er));
+                return Err(er);
             }
         };
         let core = Rc::new(RefCell::new(binid));
-        let id = Identify::new(&core, file);
+        let id = Identify::new(&core);
         Ok(DevMode { args, id })
     }
 }
+
+

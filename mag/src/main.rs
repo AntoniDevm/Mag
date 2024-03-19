@@ -31,7 +31,7 @@ fn main() {
                 let mut mode = DogMode::new();
                 mode.start();
             }
-            "dev" => {
+            "dev" | "dv"=> {
                 let mut mode = match DevMode::new(args) {
                     Ok(m) => m,
                     Err(er) => {

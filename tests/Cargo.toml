@@ -6,3 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+binid = { path = "../cores/binid/"}
+utils = { path = "../utils/"}
+object = "0.34.0"

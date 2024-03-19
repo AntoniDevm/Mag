@@ -36,10 +36,10 @@ impl Mode for DogMode {
             };
             match command.as_str() {
                 "bark" => {
-                    self.bark.run();
+                    self.bark.run(vec![]);
                 },
                 "count" => {
-                    self.counter.run();
+                    self.counter.run(vec![]);
                 }
                 "exit" | "c" | "q" | "quit" => {
                     break;

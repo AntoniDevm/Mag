@@ -1,41 +1,49 @@
-mod formats;
-use formats::{Format, ElfExecuable};
+pub mod formats;
+use anyhow::bail;
+use formats::{Format, Elf64LSB};
 use std::fmt::Display;
 use std::fs::File;
-use std::io::{self, BufReader};
+use std::io::BufReader;
 
 pub struct BinID {
     file: File,
 }
 
 impl BinID {
-    pub fn new(path: &str) -> Result<BinID, io::Error> {
-        let file = match File::open(path) {
-            Ok(f) => f,
-            Err(er) => {
-                log::error!("Error reading file");
-                log::debug!("Error message: {}", er);
-                return Err(io::Error::new(io::ErrorKind::NotFound, er));
-            }
-        };
+    pub fn new(path: &str) -> anyhow::Result<BinID> {
+        let file = File::open(path)?;
         Ok(BinID { file })
     }
-    pub fn analyze(&mut self) -> Result<BinFormats, BinIDError> {
+    pub fn analyze(&mut self) -> anyhow::Result<BinFormats> {
         let mut reader = BufReader::new(&self.file);
-        if ElfExecuable::check(&mut reader) {
-            return Ok(ElfExecuable::parse(&mut reader))
+        
+        if Elf64LSB::check(&mut reader)? {
+            return Ok(Elf64LSB::parse(&mut reader)?)
         };
-        Ok(BinFormats::UNKNOWN)
+        bail!("Unknows Format")
+    }
+    pub fn set(&mut self, path: &str) -> anyhow::Result<()> {
+        
+        self.file = File::open(path)?;
+        Ok(())
     }
 }
+
+pub enum BinFormats {
+    ELF(Elf64LSB),
+    PE,
+    UNKNOWN,
+}
+
 pub enum BinIDError {
     FormatNotRegognized,
-    BufferUnreadable { er: String },
+    BufferError { er: String },
 }
+
 impl Display for BinIDError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            BinIDError::BufferUnreadable {er} => {
+            BinIDError::BufferError {er} => {
                 write!(f, "Can not read buffer. {}", er)
             }
             BinIDError::FormatNotRegognized => {
@@ -50,8 +58,4 @@ impl Display for BinIDError {
 }
 
 
-pub enum BinFormats {
-    ELF(ElfExecuable),
-    PE,
-    UNKNOWN,
-}
+

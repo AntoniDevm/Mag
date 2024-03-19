@@ -1,6 +1,10 @@
 [workspace]
 resolver = "2"
-members = [ "arch",  "config", "cores/binid", 
-  "cores/dog", "logging",
+members = [ "arch",  "config", "cores/binid",  
+  "cores/dog",  "logging",
   "mag", "modes/dev", "modes/dog_face", "tests", "utils",
 ]
+
+# test = {
+#   harness = false
+# }

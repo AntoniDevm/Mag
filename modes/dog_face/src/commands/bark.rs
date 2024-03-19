@@ -6,7 +6,7 @@ pub struct Bark {
 }
 
 impl arch::Command for Bark {
-    fn run(&mut self) {
+    fn run(&mut self, _args: Vec<&str>) {
         println!("Woff Woff");
         let mut core = self.core.borrow_mut();
         core.increment();
